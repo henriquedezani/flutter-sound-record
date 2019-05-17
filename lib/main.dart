@@ -21,6 +21,7 @@ class MyAppState extends State<MyApp>
 
   bool _isRecording = false;
   bool _isPlaying = false;
+  bool _yetRecorded = false;
 
   StreamSubscription _recordSub;
   StreamSubscription _playerSub;
@@ -64,6 +65,7 @@ class MyAppState extends State<MyApp>
 
       setState(() {
          _isRecording = false;
+         _yetRecorded = true;
       });
     }
     catch(error){
@@ -136,10 +138,10 @@ class MyAppState extends State<MyApp>
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: <Widget>[
-                Text(_recordText, style: TextStyle(fontSize: 22)),
-                IconButton(icon: getIconRecord(), onPressed: () => !_isRecording ? startRecord() : stopRecord()),
-                Text(_playerText, style: TextStyle(fontSize: 22)),
-                IconButton(icon: getIconPlayer(), onPressed: () => !_isPlaying ? startPlayer() : stopPlayer()),
+                _isPlaying ? Container() : Text(_recordText, style: TextStyle(fontSize: 22)),
+                _isPlaying ? Container() : IconButton(icon: getIconRecord(), onPressed: () => !_isRecording ? startRecord() : stopRecord()),
+                _isRecording ? Container() : Text(_playerText, style: TextStyle(fontSize: 22)),
+                _isRecording ? Container() : IconButton(icon: getIconPlayer(), onPressed: () => !_isPlaying ? startPlayer() : stopPlayer()),
               ],
             ),
           ),
